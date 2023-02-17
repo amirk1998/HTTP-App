@@ -13,7 +13,7 @@ const FullComment = ({ commentID }) => {
   useEffect(() => {
     if (commentID) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/comments/${commentID}`)
+        .get(`https://jsonplaceholder.typicode.com/comments?id=${commentID}`)
         .then((res) => setComment(res.data))
         .catch((error) => console.log(error));
     }

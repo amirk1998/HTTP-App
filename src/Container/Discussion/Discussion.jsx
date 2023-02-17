@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Comment from '../../Components/Comment/Comment';
-import FullComment from '../../Components/Comment/FullComment';
+import FullComment from '../../Components/FullComment/FullComment';
 import NewComment from '../../Components/NewComment/NewComment';
 import axios from 'axios';
 
@@ -35,12 +35,6 @@ const Discussion = () => {
 
   const selectCommentHandler = (id) => {
     setSelectedID(id);
-    // console.log(id);
-    // axios
-    //   .get(`https://jsonplaceholder.typicode.com/comments/${id}`)
-    //   .then((res) => {
-    //     console.log(res.data.email);
-    //   });
   };
 
   return (
