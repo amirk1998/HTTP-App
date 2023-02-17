@@ -35,14 +35,17 @@ const Discussion = () => {
 
   const selectCommentHandler = (id) => {
     setSelectedID(id);
+    // console.log(id);
+    // axios
+    //   .get(`https://jsonplaceholder.typicode.com/comments/${id}`)
+    //   .then((res) => {
+    //     console.log(res.data.email);
+    //   });
   };
 
   return (
     <>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 gap-x-20 '>
-        {/* <Comment />
-        <Comment /> */}
-
         {comments ? (
           comments.map((c) => (
             <Comment

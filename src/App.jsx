@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Discussion from './Container/Discussion/Discussion';
 
 function App() {
@@ -13,4 +12,3 @@ function App() {
 }
 
 export default App;
-// TODO : E107
