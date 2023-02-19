@@ -7,7 +7,9 @@ import axios from 'axios';
 const Discussion = () => {
   const [comments, setComments] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
-
+  //Comment for FullComment Component
+  // const [comment, setComment] = useState(null);
+  //
   // useEffect(() => {
   //   axios
   //     .get('https://jsonplaceholder.typicode.com/comments')
@@ -33,7 +35,20 @@ const Discussion = () => {
     getComments();
   }, []);
 
+  // useEffect(() => {
+  //   if (selectedID) {
+  //     axios
+  //       .get(`https://jsonplaceholder.typicode.com/comments?id=${selectedID}`)
+  //       .then((res) => {
+  //         setComment(res.data);
+  //         console.log(res.data);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
+  // }, [selectedID]);
+
   const selectCommentHandler = (id) => {
+    console.log(id);
     setSelectedID(id);
   };
 
