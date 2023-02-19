@@ -20,7 +20,8 @@ const NewComment = () => {
     setComment({ ...comment, content: e.target.value });
   };
 
-  const postCommentHandler = () => {
+  const postCommentHandler = (e) => {
+    e.preventDefault();
     axios
       .post('https://jsonplaceholder.typicode.com/comments', comment)
       .then((res) => {
