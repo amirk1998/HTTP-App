@@ -9,10 +9,10 @@ const FullComment = ({ commentID }) => {
     </p>
   );
 
-  // if (commentID)
-  //   <p className='bg-indigo-200 text-slate-800 px-8 py-2 w-1/2 text-center rounded-md font-semibold'>
-  //     Loading ...
-  //   </p>;
+  if (commentID)
+    <p className='bg-indigo-200 text-slate-800 px-8 py-2 w-1/2 text-center rounded-md font-semibold'>
+      Loading ...
+    </p>;
 
   useEffect(() => {
     if (commentID) {
