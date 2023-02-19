@@ -8,22 +8,17 @@ const NewComment = () => {
     content: '',
   });
 
-  const nameHandler = (e) => {
-    setComment({ ...comment, name: e.target.value });
-  };
-
-  const emailHandler = (e) => {
-    setComment({ ...comment, email: e.target.value });
-  };
-
-  const contentHandler = (e) => {
-    setComment({ ...comment, content: e.target.value });
+  const changeHandler = (e) => {
+    setComment({ ...comment, [e.target.name]: e.target.value });
   };
 
   const postCommentHandler = (e) => {
     e.preventDefault();
     axios
-      .post('https://jsonplaceholder.typicode.com/comments', comment)
+      .post('https://jsonplaceholder.typicode.com/comments', {
+        ...comment,
+        postId: 10,
+      })
       .then((res) => {
         console.log(res);
         console.log('______');
@@ -70,7 +65,8 @@ const NewComment = () => {
         <input
           type='text'
           id='name'
-          onChange={nameHandler}
+          name='name'
+          onChange={changeHandler}
           placeholder='Name'
           className='bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-slate-600 '
         ></input>
@@ -85,7 +81,8 @@ const NewComment = () => {
         <input
           type='text'
           id='email'
-          onChange={emailHandler}
+          name='email'
+          onChange={changeHandler}
           placeholder='Email'
           className='bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-slate-600 '
         ></input>
@@ -100,7 +97,8 @@ const NewComment = () => {
         <textarea
           type='textarea'
           id='content'
-          onChange={contentHandler}
+          name='content'
+          onChange={changeHandler}
           placeholder='Content'
           className=' bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-[70px] resize-none p-2.5 placeholder:text-slate-600 '
           // className='resize-none bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-[100px] p-2.5 placeholder:text-slate-600 '
