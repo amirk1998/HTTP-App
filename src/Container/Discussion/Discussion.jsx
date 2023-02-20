@@ -23,10 +23,8 @@ const Discussion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await axios.get(
-          'https://jsonplaceholder.typicode.com/comments'
-        );
-        setComments(data.slice(0, 3));
+        const { data } = await axios.get('http://localhost:3001/comments');
+        setComments(data);
       } catch (error) {
         console.log(error);
       }
@@ -39,9 +37,19 @@ const Discussion = () => {
     setSelectedID(id);
   };
 
+  const postCommentHandler = (event, comment) => {
+    event.preventDefault();
+
+    axios
+      .post('http://localhost:3001/comments', { ...comment, postId: 1 })
+      .then((res) => axios.get('http://localhost:3001/comments'))
+      .then((res) => setComments(res.data))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
-      <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 gap-x-20 '>
+      <section className='grid grid-cols-3 auto-rows-max items-center justify-center gap-x-20 gap-y-10 border-2 border-gray-400 rounded-lg p-4 my-4  '>
         {comments ? (
           comments.map((c) => (
             <Comment
@@ -59,7 +67,7 @@ const Discussion = () => {
         <FullComment commentID={selectedID} />
       </section>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 '>
-        <NewComment />
+        <NewComment onAddPost={postCommentHandler} />
       </section>
     </>
   );

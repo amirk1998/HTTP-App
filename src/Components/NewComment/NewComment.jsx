@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const NewComment = () => {
+const NewComment = ({ onAddPost }) => {
   const [comment, setComment] = useState({
     name: '',
     email: '',
@@ -12,20 +12,17 @@ const NewComment = () => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
 
-  const postCommentHandler = (e) => {
-    e.preventDefault();
-    axios
-      .post('https://jsonplaceholder.typicode.com/comments', {
-        ...comment,
-        postId: 10,
-      })
-      .then((res) => {
-        console.log(res);
-        console.log('______');
-        console.log(comment);
-      })
-      .catch((error) => console.log(error));
-  };
+  // const postCommentHandler = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post('http://localhost:3001/comments', comment)
+  //     .then((res) => {
+  //       console.log(res);
+  //       console.log('______');
+  //       console.log(comment);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   // const postCommentHandler = () => {
 
@@ -55,6 +52,7 @@ const NewComment = () => {
   // };
   return (
     <form className='bg-indigo-200 rounded-lg flex flex-col items-center gap-y-4 py-2 px-4 w-2/3'>
+      <h3 className='block text-violet-600 font-medium'>Add New Comment</h3>
       <div className='flex items-center justify-start gap-x-4'>
         <label
           htmlFor='name'
@@ -105,7 +103,7 @@ const NewComment = () => {
         ></textarea>
       </div>
       <button
-        onClick={postCommentHandler}
+        onClick={(e) => onAddPost(e, comment)}
         className='bg-indigo-500 text-white px-4 py-2 my-2 rounded-lg hover:bg-indigo-700 '
       >
         Add New Comment

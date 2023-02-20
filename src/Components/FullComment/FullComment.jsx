@@ -7,7 +7,7 @@ const FullComment = ({ commentID }) => {
   useEffect(() => {
     if (commentID) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/comments/${commentID}`)
+        .get(`http://localhost:3001/comments/${commentID}`)
         .then((res) => {
           setComment(res.data);
           console.log(res.data);
@@ -18,7 +18,7 @@ const FullComment = ({ commentID }) => {
 
   const deleteHandler = () => {
     axios
-      .delete(`https://jsonplaceholder.typicode.com/comments/${commentID}`)
+      .delete(`http://localhost:3001/comments/${commentID}`)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
@@ -42,7 +42,7 @@ const FullComment = ({ commentID }) => {
         <p className='px-4 py-2 text-center'>{comment.body}</p>
         <button
           onClick={deleteHandler}
-          className='flex items-center justify-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 '
+          className='flex items-center justify-center bg-slate-100 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 '
         >
           Delete
         </button>
