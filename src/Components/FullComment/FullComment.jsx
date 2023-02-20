@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const FullComment = ({ commentID }) => {
+const FullComment = ({ commentID, setComments, setSelectedID }) => {
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const FullComment = ({ commentID }) => {
         .get(`http://localhost:3001/comments/${commentID}`)
         .then((res) => {
           setComment(res.data);
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((error) => console.log(error));
     }
@@ -19,8 +19,13 @@ const FullComment = ({ commentID }) => {
   const deleteHandler = () => {
     axios
       .delete(`http://localhost:3001/comments/${commentID}`)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => axios.get('http://localhost:3001/comments'))
+      .then((res) => setComments(res.data))
+      .then((res) => {
+        setSelectedID(null);
+        setComment(null);
+      })
+      .catch((error) => console.log(error));
   };
 
   let commentDetail = (

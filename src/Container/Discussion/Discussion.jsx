@@ -90,11 +90,15 @@ const Discussion = () => {
 
   return (
     <>
-      <section className='grid grid-cols-3 auto-rows-max items-center justify-center gap-x-20 gap-y-10 border-2 border-gray-400 rounded-lg p-4 my-4  '>
+      <section className='grid grid-cols-3 auto-rows-max items-center justify-center gap-x-20 gap-y-10 w-full border-2 border-gray-400 rounded-lg p-4 my-4  '>
         {renderComments()}
       </section>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 '>
-        <FullComment commentID={selectedID} />
+        <FullComment
+          commentID={selectedID}
+          setComments={setComments}
+          setSelectedID={setSelectedID}
+        />
       </section>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 '>
         <NewComment setComments={setComments} />
