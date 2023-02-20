@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Comment from '../../Components/Comment/Comment';
 import FullComment from '../../Components/FullComment/FullComment';
 import NewComment from '../../Components/NewComment/NewComment';
-import http from '../../services/httpServices';
 import { toast } from 'react-toastify';
+import { getAllComments } from '../../services/getAllCommentService';
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
@@ -24,7 +24,7 @@ const Discussion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await http.get('/comments');
+        const { data } = await getAllComments();
         setComments(data);
       } catch (error) {
         // console.log(err);

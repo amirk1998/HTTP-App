@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
+import { addNewPost } from '../../services/addNewCommentService';
+import { getAllComments } from '../../services/getAllCommentService';
 
 const NewComment = ({ setComments }) => {
   const [comment, setComment] = useState({
@@ -12,57 +13,17 @@ const NewComment = ({ setComments }) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
 
-  const postCommentHandler = (event) => {
+  const postCommentHandler = async (event) => {
     event.preventDefault();
-
-    axios
-      .post('/comments', { ...comment, postId: 1 })
-      .then((res) => axios.get('/comments'))
-      .then((res) => setComments(res.data))
-      .catch((error) => console.log(error));
+    try {
+      await addNewPost({ ...comment, postId: 1 });
+      const { data } = await getAllComments();
+      setComments(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  //________________________________________
-  // const postCommentHandler = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post('/comments', comment)
-  //     .then((res) => {
-  //       console.log(res);
-  //       console.log('______');
-  //       console.log(comment);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  // const postCommentHandler = () => {
-
-  //   axios
-  //   .post('https://jsonplaceholder.typicode.com/comments', comment)
-  //   .then((res) => console.log(res))
-  //   .catch((error) => console.log(error));
-  //   // axios
-  //   //   .post('https://jsonplaceholder.typicode.com/comments', comment, {
-  //   //     headers: {
-  //   //       'Content-type': 'application/json; charset=UTF-8',
-  //   //     },
-  //   //   })
-  //   //   .then((res) => console.log(res))
-  //   //   .catch();
-
-  //   // fetch('https://jsonplaceholder.typicode.com/posts/1', {
-  //   //   method: 'PUT',
-  //   //   body: JSON.stringify(comment),
-  //   //   headers: {
-  //   //     'Content-type': 'application/json; charset=UTF-8',
-  //   //   },
-  //   // })
-  //   //   .then((response) => response.json())
-  //   //   .then((json) => console.log(json));
-
-  // };
-
-  //________________________________________
   return (
     <form className='bg-indigo-200 rounded-lg flex flex-col items-center gap-y-4 py-2 px-4 w-2/3'>
       <h3 className='block text-violet-600 font-medium'>Add New Comment</h3>

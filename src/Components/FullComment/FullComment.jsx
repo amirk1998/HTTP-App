@@ -1,13 +1,14 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { deleteComment } from '../../services/deleteCommentService';
+import { getAllComments } from '../../services/getAllCommentService';
+import { getOneComment } from '../../services/getOneCommentService';
 
 const FullComment = ({ commentID, setComments, setSelectedID }) => {
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
     if (commentID) {
-      axios
-        .get(`/comments/${commentID}`)
+      getOneComment(commentID)
         .then((res) => {
           setComment(res.data);
           // console.log(res.data);
@@ -17,11 +18,10 @@ const FullComment = ({ commentID, setComments, setSelectedID }) => {
   }, [commentID]);
 
   const deleteHandler = () => {
-    axios
-      .delete(`/comments/${commentID}`)
-      .then((res) => axios.get('/comments'))
-      .then((res) => setComments(res.data))
+    deleteComment(commentID)
+      .then((res) => getAllComments())
       .then((res) => {
+        setComments(res.data);
         setSelectedID(null);
         setComment(null);
       })
