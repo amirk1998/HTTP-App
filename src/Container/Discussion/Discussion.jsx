@@ -7,7 +7,7 @@ import axios from 'axios';
 const Discussion = () => {
   const [comments, setComments] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
-
+  const [error, setError] = useState(false);
   //
   // useEffect(() => {
   //   axios
@@ -26,7 +26,8 @@ const Discussion = () => {
         const { data } = await axios.get('http://localhost:3001/comments');
         setComments(data);
       } catch (error) {
-        console.log(error);
+        // console.log(err);
+        setError(true);
       }
     };
     getComments();
@@ -35,6 +36,33 @@ const Discussion = () => {
   const selectCommentHandler = (id) => {
     console.log(id);
     setSelectedID(id);
+  };
+
+  const renderComments = () => {
+    let renderValue = (
+      <p className='text-center font-semibold text-xl text-slate-800'>
+        Loading ...
+      </p>
+    );
+    if (error)
+      renderValue = (
+        <p className='text-center font-semibold text-xl text-slate-800'>
+          fetching data failed !!!
+        </p>
+      );
+
+    if (comments && !error) {
+      renderValue = comments.map((c) => (
+        <Comment
+          key={c.id}
+          name={c.name}
+          email={c.email}
+          onClick={() => selectCommentHandler(c.id)}
+        />
+      ));
+    }
+
+    return renderValue;
   };
 
   // const postCommentHandler = (event, comment) => {
@@ -50,18 +78,7 @@ const Discussion = () => {
   return (
     <>
       <section className='grid grid-cols-3 auto-rows-max items-center justify-center gap-x-20 gap-y-10 border-2 border-gray-400 rounded-lg p-4 my-4  '>
-        {comments ? (
-          comments.map((c) => (
-            <Comment
-              key={c.id}
-              name={c.name}
-              email={c.email}
-              onClick={() => selectCommentHandler(c.id)}
-            />
-          ))
-        ) : (
-          <p> Loading ...</p>
-        )}
+        {renderComments()}
       </section>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 '>
         <FullComment commentID={selectedID} />
