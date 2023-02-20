@@ -37,15 +37,15 @@ const Discussion = () => {
     setSelectedID(id);
   };
 
-  const postCommentHandler = (event, comment) => {
-    event.preventDefault();
+  // const postCommentHandler = (event, comment) => {
+  //   event.preventDefault();
 
-    axios
-      .post('http://localhost:3001/comments', { ...comment, postId: 1 })
-      .then((res) => axios.get('http://localhost:3001/comments'))
-      .then((res) => setComments(res.data))
-      .catch((error) => console.log(error));
-  };
+  //   axios
+  //     .post('http://localhost:3001/comments', { ...comment, postId: 1 })
+  //     .then((res) => axios.get('http://localhost:3001/comments'))
+  //     .then((res) => setComments(res.data))
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <>
@@ -67,7 +67,7 @@ const Discussion = () => {
         <FullComment commentID={selectedID} />
       </section>
       <section className='flex items-center justify-center w-full border-2 border-gray-400 rounded-lg p-4 my-4 '>
-        <NewComment onAddPost={postCommentHandler} />
+        <NewComment setComments={setComments} />
       </section>
     </>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const NewComment = ({ onAddPost }) => {
+const NewComment = ({ setComments }) => {
   const [comment, setComment] = useState({
     name: '',
     email: '',
@@ -12,6 +12,17 @@ const NewComment = ({ onAddPost }) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
 
+  const postCommentHandler = (event) => {
+    event.preventDefault();
+
+    axios
+      .post('http://localhost:3001/comments', { ...comment, postId: 1 })
+      .then((res) => axios.get('http://localhost:3001/comments'))
+      .then((res) => setComments(res.data))
+      .catch((error) => console.log(error));
+  };
+
+  //________________________________________
   // const postCommentHandler = (e) => {
   //   e.preventDefault();
   //   axios
@@ -50,6 +61,8 @@ const NewComment = ({ onAddPost }) => {
   //   //   .then((json) => console.log(json));
 
   // };
+
+  //________________________________________
   return (
     <form className='bg-indigo-200 rounded-lg flex flex-col items-center gap-y-4 py-2 px-4 w-2/3'>
       <h3 className='block text-violet-600 font-medium'>Add New Comment</h3>
@@ -103,7 +116,7 @@ const NewComment = ({ onAddPost }) => {
         ></textarea>
       </div>
       <button
-        onClick={(e) => onAddPost(e, comment)}
+        onClick={postCommentHandler}
         className='bg-indigo-500 text-white px-4 py-2 my-2 rounded-lg hover:bg-indigo-700 '
       >
         Add New Comment
