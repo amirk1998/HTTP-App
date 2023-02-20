@@ -3,6 +3,7 @@ import Comment from '../../Components/Comment/Comment';
 import FullComment from '../../Components/FullComment/FullComment';
 import NewComment from '../../Components/NewComment/NewComment';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
@@ -44,12 +45,24 @@ const Discussion = () => {
         Loading ...
       </p>
     );
-    if (error)
+    if (error) {
       renderValue = (
         <p className='text-center font-semibold text-xl text-slate-800'>
           fetching data failed !!!
         </p>
       );
+      toast.error('fetching data failed!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        toastId: 'custom-id-yes',
+        progress: undefined,
+        theme: 'light',
+      });
+    }
 
     if (comments && !error) {
       renderValue = comments.map((c) => (
