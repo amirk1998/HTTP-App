@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Comment from '../../Components/Comment/Comment';
 import FullComment from '../../Components/FullComment/FullComment';
 import NewComment from '../../Components/NewComment/NewComment';
-import axios from 'axios';
+import http from '../../services/httpServices';
 import { toast } from 'react-toastify';
 
 const Discussion = () => {
@@ -24,7 +24,7 @@ const Discussion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3001/comments');
+        const { data } = await http.get('/comments');
         setComments(data);
       } catch (error) {
         // console.log(err);
@@ -82,8 +82,8 @@ const Discussion = () => {
   //   event.preventDefault();
 
   //   axios
-  //     .post('http://localhost:3001/comments', { ...comment, postId: 1 })
-  //     .then((res) => axios.get('http://localhost:3001/comments'))
+  //     .post('/comments', { ...comment, postId: 1 })
+  //     .then((res) => axios.get('/comments'))
   //     .then((res) => setComments(res.data))
   //     .catch((error) => console.log(error));
   // };

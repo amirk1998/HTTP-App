@@ -7,7 +7,7 @@ const FullComment = ({ commentID, setComments, setSelectedID }) => {
   useEffect(() => {
     if (commentID) {
       axios
-        .get(`http://localhost:3001/comments/${commentID}`)
+        .get(`/comments/${commentID}`)
         .then((res) => {
           setComment(res.data);
           // console.log(res.data);
@@ -18,8 +18,8 @@ const FullComment = ({ commentID, setComments, setSelectedID }) => {
 
   const deleteHandler = () => {
     axios
-      .delete(`http://localhost:3001/comments/${commentID}`)
-      .then((res) => axios.get('http://localhost:3001/comments'))
+      .delete(`/comments/${commentID}`)
+      .then((res) => axios.get('/comments'))
       .then((res) => setComments(res.data))
       .then((res) => {
         setSelectedID(null);

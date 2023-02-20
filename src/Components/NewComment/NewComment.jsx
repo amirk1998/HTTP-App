@@ -16,8 +16,8 @@ const NewComment = ({ setComments }) => {
     event.preventDefault();
 
     axios
-      .post('http://localhost:3001/comments', { ...comment, postId: 1 })
-      .then((res) => axios.get('http://localhost:3001/comments'))
+      .post('/comments', { ...comment, postId: 1 })
+      .then((res) => axios.get('/comments'))
       .then((res) => setComments(res.data))
       .catch((error) => console.log(error));
   };
@@ -26,7 +26,7 @@ const NewComment = ({ setComments }) => {
   // const postCommentHandler = (e) => {
   //   e.preventDefault();
   //   axios
-  //     .post('http://localhost:3001/comments', comment)
+  //     .post('/comments', comment)
   //     .then((res) => {
   //       console.log(res);
   //       console.log('______');
